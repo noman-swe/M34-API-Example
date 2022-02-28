@@ -11,7 +11,7 @@ const displayBuddies = data => {
         const p = document.createElement('p');
         // p.classList.add()
         // p.innerText = buddy.email;
-        p.innerHTML =  `Name: <span>${buddy.name.title} ${buddy.name.first} ${buddy.name.last} </span> Email:<span> ${buddy.email} </span>`
+        p.innerHTML =  `Name: <span>${buddy.name.title} ${buddy.name.first} ${buddy.name.last} </span> Email:<span> ${buddy.email} </span>`;
         buddiesDiv.appendChild(p);
     }
     
