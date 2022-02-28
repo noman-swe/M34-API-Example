@@ -1,9 +1,12 @@
+#countriesList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
 .country{
     border: 1px solid salmon;
     border-radius: 10px;
     background-color: sandybrown;
     margin: 10px;
-    display: inline-block;
     padding: 10px;
 }
 h3{
