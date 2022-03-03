@@ -1,11 +1,11 @@
-const searchFood = () => {
+const searchFood = async () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
 // clear data
     searchField.value = '';
 
-    // have to complete
-    if(searchText == ''){
+       // have to complete
+       if(searchText == ''){
         // please write something to display
         const searchErr = document.getElementById('search-err');
         searchErr.innerText = `no results found`;
@@ -13,9 +13,11 @@ const searchFood = () => {
 else{
     // load data
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
-    fetch (url)
-    .then(res => res.json())
-    .then(data => displaySearchResult(data.meals))
+    
+    const res = await fetch(url);
+    const data = await res.json();
+    displaySearchResult(data.meals);
+
     const searchErr = document.getElementById('search-err');
     searchErr.textContent = '';
 }
@@ -28,12 +30,10 @@ const displaySearchResult = meals => {
     /* searchResult.innerHTML = ''; */
     searchResult.textContent = '';
 
-    // have to complete
     if(meals.length == 0){
         // show no result found
-        const searchErr = document.getElementById('search-err');
-        searchErr.innerText = `no results found`;
     }
+
 
     meals.forEach(meal => {
         // console.log(meal);
@@ -54,20 +54,21 @@ const displaySearchResult = meals => {
     });
 }
 
-const loadMealDetail = mealId => {
+const loadMealDetail = async mealId => {
     // console.log(mealId);
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displayMealDetail(data.meals[0]))
+    const res = await fetch(url);
+    const data = await res.json();
+    displayMealDetail(data.meals[0])
+
 }
 displayMealDetail = meal => {
-    // console.log(meal);
+    console.log(meal);
     const mealDetails = document.getElementById('meal-details');
+    mealDetails.textContent = '';//clearing the searched single items descriptions
     const div = document.createElement('card');
     div.classList.add('card');
     div.innerHTML = `
-            <div>
             <img src="${meal.strMealThumb}" class="card-img-top img-fluid" alt="..." width="">
             <div class="card-body">
                 <h5 class="card-title">Name: ${meal.strMeal}</h5>
@@ -75,9 +76,8 @@ displayMealDetail = meal => {
                 <p class="card-text">Area: ${meal.strArea}</p>
                 <p class="card-text">Instructions: ${meal.strInstructions.slice(0, 180)}</p>
                 <a class=""></a> </br>
-                <a href="${meal.strYoutube}" target="_blank" type="button" class="btn btn-primary mt-1">Go Somewhere</a>
+                <a href="${meal.strYoutube}" target="_blank" type="button" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
-            </div>
     `;
     mealDetails.appendChild(div);
 
