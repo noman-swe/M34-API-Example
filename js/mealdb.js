@@ -8,14 +8,15 @@ const searchFood = () => {
     if(searchText == ''){
         // please write something to display
         const searchErr = document.getElementById('search-err');
-        searchErr.innerText = `no results found`;
+        searchErr.innerText = `no results found or error search`;
     }
 else{
     // load data
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
+    const url = `https://www.themealdb.com/api/json/v91/1/search.php?s=${searchText}`;
     fetch (url)
     .then(res => res.json())
     .then(data => displaySearchResult(data.meals))
+    .catch(error => console.log(error))
     const searchErr = document.getElementById('search-err');
     searchErr.textContent = '';
 }
@@ -32,7 +33,7 @@ const displaySearchResult = meals => {
     if(meals.length == 0){
         // show no result found
         const searchErr = document.getElementById('search-err');
-        searchErr.innerText = `no results found`;
+        searchErr.innerText = `no results found for meals.length`;
     }
 
     meals.forEach(meal => {
